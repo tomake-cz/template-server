@@ -1,10 +1,11 @@
-// general imports
+// graphql imports
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import lodash from 'lodash';
-const { merge } = lodash;
 // schema-resolvers
 import { typeDef as Query, resolvers as queryRes, } from './schema-resolvers/query.js';
+// other imports
+import lodash from 'lodash';
+const { merge } = lodash;
 const server = new ApolloServer({
     typeDefs: [Query],
     resolvers: merge(queryRes),
