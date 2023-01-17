@@ -8,19 +8,27 @@
     "generate": "graphql-codegen --config codegen.yml",
     "compile": "npm run generate && tsc",
     "start": "npm run compile && node ./dist/index.js",
+    "dev": "npm run compile && nodemon -x ts-node-esm ./src/index.ts",
     "lint": "eslint --ext .ts .",
-    "lint:fix": "eslint --ext .ts . --fix"
+    "lint:fix": "eslint --ext .ts . --fix",
+    "prisma:run": "ts-node-esm src/prisma/script.ts",
+    "prisma:migrate": "yarn prisma migrate dev --name init",
+    "prisma:generate": "yarn prisma generate",
+    "prisma:update": "yarn run prisma:generate && yarn run prisma:reinstall",
+    "prisma:studio": "yarn prisma studio",
+    "prisma:reinstall": "yarn rimraf ./node_modules/.prisma && yarn rimraf ./node_modules/@prisma && yarn rimraf ./node_modules/prisma && npm install"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@apollo/server": "^4.3.0",
+    "@prisma/client": "^4.8.1",
     "@types/lodash": "^4.14.191",
+    "apollo-datasource": "^3.3.2",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
-    "lodash": "^4.17.21",
-    "ts-node": "^10.9.1"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.16.4",
@@ -35,7 +43,10 @@
     "eslint-plugin-n": "^15.0.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.0.0",
+    "nodemon": "^2.0.20",
     "prettier": "2.8.3",
+    "prisma": "^4.8.1",
+    "ts-node": "^10.9.1",
     "typescript": "*"
   }
 }
