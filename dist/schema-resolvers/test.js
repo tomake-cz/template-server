@@ -1,7 +1,7 @@
 import { gql } from 'graphql-tag';
 export const typeDef = gql `
   extend type Query {
-    test: [Test]!
+    tests: [Test]!
   }
 
   type Test {
@@ -12,7 +12,7 @@ export const typeDef = gql `
 `;
 export const resolvers = {
     Query: {
-        test: async (parent, args, { dataSources }) => {
+        tests: async (parent, args, { dataSources }) => {
             return dataSources.testAPI.getAllTests();
         },
     },

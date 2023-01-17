@@ -3,7 +3,7 @@ import { Resolvers } from '../types/resolvers-types'
 
 export const typeDef = gql`
   extend type Query {
-    test: [Test]!
+    tests: [Test]!
   }
 
   type Test {
@@ -15,7 +15,7 @@ export const typeDef = gql`
 
 export const resolvers: Resolvers = {
   Query: {
-    test: async (parent, args, { dataSources }) => {
+    tests: async (parent, args, { dataSources }) => {
       return dataSources.testAPI.getAllTests()
     },
   },

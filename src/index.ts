@@ -2,6 +2,11 @@
 import { ApolloServer } from '@apollo/server'
 import { startStandaloneServer } from '@apollo/server/standalone'
 
+// mocks
+import { addMocksToSchema } from '@graphql-tools/mock'
+import { makeExecutableSchema } from '@graphql-tools/schema'
+import mocks from './mocks.js'
+
 // datasources
 import { TestAPI } from './datasources/testAPI.js'
 
@@ -30,8 +35,13 @@ export interface Context {
 }
 
 const server = new ApolloServer<Context>({
-  typeDefs: [Query, Test],
-  resolvers: merge(queryRes, testRes),
+  schema: addMocksToSchema({
+    schema: makeExecutableSchema({
+      typeDefs: [Query, Test],
+      resolvers: merge(queryRes, testRes),
+    }),
+    mocks,
+  }),
 })
 
 const { url } = await startStandaloneServer(server, {
